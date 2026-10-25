@@ -161,7 +161,7 @@ probewolf 127.0.0.1 -p 8080
 - [ ] Multithreaded scanning for much faster scans
 - [ ] Scanning IP ranges in CIDR notation (e.g. `192.168.1.0/24`)
 - [ ] Banner grabbing to detect the exact service and version
-- [ ] Hostname support (e.g. `example.com`)
+- [x] Hostname support (e.g. `example.com`)
 - [ ] UDP scanning
 - [ ] Saving results to a file
 
