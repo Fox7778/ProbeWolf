@@ -3,7 +3,7 @@ import argparse
 import sys
 #flags and their settings
 parser = argparse.ArgumentParser(prog="ProbeWolf", description="ProbeWolf is port scanner with few flags", epilog="Filip Novák 2026")
-parser.add_argument("target", nargs="?", help="Targets IP adress")
+parser.add_argument("target", nargs="?", help="Targets IP adress or domain name [google.com]")
 parser.add_argument("-p", "--port", type=int, help="Scanner will scan only one port")
 parser.add_argument("-s", "--start", type=int,default=1, help="Targets first port to scan [default is 1]")
 parser.add_argument("-e", "--end", type=int, default=1024, help="Targets last port to scan [default is 1024]")
