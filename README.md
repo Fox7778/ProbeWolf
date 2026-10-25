@@ -33,7 +33,7 @@ Clone or download the repository:
 
 ```bash
 git clone https://github.com/Fox7778/ProbeWolf.git
-cd probewolf
+cd ProbeWolf
 ```
 
 You can now run it with:
