@@ -32,7 +32,7 @@ It uses only the Python standard library, so there is nothing to install besides
 Clone or download the repository:
 
 ```bash
-git clone https://github.com/<your-username>/probewolf.git
+git clone https://github.com/Fox7778/probewolf.git
 cd probewolf
 ```
 
