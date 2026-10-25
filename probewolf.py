@@ -1,5 +1,6 @@
 import socket 
 import argparse
+import sys
 #flags and their settings
 parser = argparse.ArgumentParser(prog="ProbeWolf", description="ProbeWolf is port scanner with few flags", epilog="Filip Novák 2026")
 parser.add_argument("target", nargs="?", help="Targets IP adress")
@@ -12,11 +13,11 @@ parser.add_argument("-6", "--ipv6", action="store_true", help="Switch scanner to
 args = parser.parse_args()
 #if statement which checks if is something in target(first place after probewolf.py "target"), if not than it ask for the minimum informations
 if args.target is None:
- ip = input("IPv4 or IPv4? [IPv4/IPv6] ")
- if ip == "IPv4" or ip == "ipv4": 
-  args.ipv6 == False
+ ip = input("IPv4 or IPv6? [IPv4/IPv6] ")
+ if ip == "IPv6" or ip == "ipv6": 
+  args.ipv6 = True
  else:
-  args.ipv6 == True
+  args.ipv6 = False
  args.target = input("Targets adress: ")
  port = input("Specific port? [y/N]")
  if port == "y" or port == "Y":
@@ -33,12 +34,23 @@ if args.ipv6 is True:
 else:
  protocol = socket.AF_INET
 
+#dns for args.target urls
+try:
+ info = socket.getaddrinfo(args.target, None, protocol, socket.SOCK_STREAM)
+ address = info[0][4][0]
+except socket.gaierror:
+ if args.ipv6 is True:
+  sys.exit(f"Error: {args.target} has no IPv6 address")
+ else:
+  sys.exit(f"Error: cannot resolve {args.target}")
+
+
 #checks if specific port is specified
 if args.port is None:
  for i in range(args.start, args.end+1):
   s = socket.socket(protocol, socket.SOCK_STREAM)
   s.settimeout(args.timeout)
-  if s.connect_ex((args.target, i)) == 0:
+  if s.connect_ex((address, i)) == 0:
     try:
       service = socket.getservbyport(i)
     except OSError:
@@ -48,7 +60,7 @@ if args.port is None:
 else:
  s = socket.socket(protocol, socket.SOCK_STREAM)
  s.settimeout(args.timeout)
- response = s.connect_ex((args.target, args.port))
+ response = s.connect_ex((address, args.port))
  if response == 0:
    try:
     service = socket.getservbyport(args.port)
